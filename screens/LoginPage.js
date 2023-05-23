@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
+  KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 function LoginPage({ navigation }) {
   const [email, setEmail] = useState("");
@@ -25,42 +28,59 @@ function LoginPage({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
+            <LinearGradient
+      colors={["#54EA90", "#8454EA"]} // Specify the colors you want to use
+      start={{ x: -0.5, y: -0.8 }} // Start from the top left corner
+      end={{ x: 1, y: 1 }} // End at the bottom right corner
+      style={{ flex: 1 }} // Make sure the gradient fills the entire screen
+    >
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate("Landing")}
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
-          <Icon name="x" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="black"
-          keyboardType="default"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="black"
-          keyboardType="default"
-          autoCapitalize="none"
-          secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Login")}
+            style={styles.backButton}
+            onPress={() => navigation.navigate("Landing")}
           >
-            <Text style={[styles.buttonText, { color: "white" }]}>Log In</Text>
+            <Icon name="x" size={34} color="black" />
           </TouchableOpacity>
-        </View>
+          <View>
+            <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="black"
+              keyboardType="default"
+              autoCapitalize="none"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="black"
+              keyboardType="default"
+              autoCapitalize="none"
+              secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Login")}
+              >
+                <Text style={[styles.buttonText, { color: "white" }]}>
+                  Log In
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
+      </LinearGradient>
     </TouchableWithoutFeedback>
   );
 }
