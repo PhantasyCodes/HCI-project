@@ -1,50 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, } from "react-native";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Landing from "./screens/Landing";
+import LoginPage from "./screens/LoginPage";
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Molot: require("./assets/fonts/Molot.otf"),
-    "Metropolis-Regular": require("./assets/fonts/Metropolis-Regular.otf"),
-    "Metropolis-SemiBold": require("./assets/fonts/Metropolis-SemiBold.otf"),
-  });
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
-      <Text style={styles.welcome}>
-        Welcome to Roomie Roulette. You can start here
-      </Text>
-      <View style={{ flexDirection: "row" }}>
-        
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Landing">
+        <Stack.Screen name="Landing" component={Landing} />
+        <Stack.Screen  name="Login" component={LoginPage}  />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#8454EA",
-    justifyContent: "center",
-  },
-
-  landingText: {
-    fontSize: 70,
-    fontFamily: "Molot",
-    marginLeft: 20,
-    lineHeight: 70,
-    marginBottom: 20,
-  },
-
-  welcome: {
-    fontSize: 20,
-    marginLeft: 20,
-    fontFamily: "Metropolis-SemiBold",
-    color: "#fff",
-    maxWidth: "75%",
-  },
-});
