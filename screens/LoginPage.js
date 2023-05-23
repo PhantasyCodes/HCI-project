@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-
 import {
   StyleSheet,
   Text,
@@ -10,8 +9,9 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 
-function LoginPage(props) {
+function LoginPage({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +26,12 @@ function LoginPage(props) {
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <SafeAreaView style={styles.container}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.navigate("Landing")}
+        >
+          <Icon name="x" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
         <TextInput
           style={styles.input}
@@ -98,6 +104,13 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: "Metropolis-SemiBold",
     fontSize: 20,
+  },
+
+  backButton: {
+    position: "absolute",
+    top: "5%",
+    right: 16,
+    padding: 8,
   },
 });
 

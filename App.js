@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,9 +18,12 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
+      <Stack.Navigator
+        initialRouteName="Landing"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen  name="Login" component={LoginPage}  />
+        <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
