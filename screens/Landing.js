@@ -38,7 +38,7 @@ function Landing({ navigation }) {
             <Text style={[styles.buttonText, { color: "white" }]}>Log In</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button2}>
-            <Text style={styles.buttonText}>Sign Up</Text>
+            <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

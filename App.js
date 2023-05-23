@@ -1,8 +1,6 @@
 import {
-  StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Button,
   TouchableOpacity,
 } from "react-native";
@@ -12,6 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Landing from "./screens/Landing";
 import LoginPage from "./screens/LoginPage";
+import HomePage from "./screens/HomePage";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +23,7 @@ export default function App() {
       >
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="Login" component={LoginPage} />
+        <Stack.Screen name="Home" component={HomePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
