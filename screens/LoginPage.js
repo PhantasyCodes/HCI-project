@@ -12,7 +12,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { LinearGradient } from "expo-linear-gradient";
-
+import {BASE_URL} from "@env"
+import * as Device from "expo-device";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginPage({ navigation }) {
   const [email, setEmail] = useState("");
@@ -24,62 +26,81 @@ function LoginPage({ navigation }) {
     Keyboard.dismiss();
   };
 
-  const handleLogin = () => {};
+  const handleSignUp = () => {
+    fetch(`${BASE_URL}/api/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        devicename: Device.modelName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        AsyncStorage.setItem("token", data.token);
+        AsyncStorage.setItem("user", JSON.stringify(data.user));
+
+        navigation.navigate("Home");
+      });
+  };
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-            <LinearGradient
-      colors={["#54EA90", "#8454EA"]} // Specify the colors you want to use
-      start={{ x: -0.5, y: -0.8 }} // Start from the top left corner
-      end={{ x: 1, y: 1 }} // End at the bottom right corner
-      style={{ flex: 1 }} // Make sure the gradient fills the entire screen
-    >
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
-        >
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.navigate("Landing")}
+      <LinearGradient
+        colors={["#54EA90", "#8454EA"]} // Specify the colors you want to use
+        start={{ x: -0.5, y: -0.8 }} // Start from the top left corner
+        end={{ x: 1, y: 1 }} // End at the bottom right corner
+        style={{ flex: 1 }} // Make sure the gradient fills the entire screen
+      >
+        <SafeAreaView style={styles.container}>
+          <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
           >
-            <Icon name="x" size={34} color="black" />
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="black"
-              keyboardType="default"
-              autoCapitalize="none"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="black"
-              keyboardType="default"
-              autoCapitalize="none"
-              secureTextEntry
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-            <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Login")}
-              >
-                <Text style={[styles.buttonText, { color: "white" }]}>
-                  Log In
-                </Text>
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => navigation.navigate("Landing")}
+            >
+              <Icon name="x" size={34} color="black" />
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.landingText}>ROOMIE ROULETTE</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="black"
+                keyboardType="default"
+                autoCapitalize="none"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="black"
+                keyboardType="default"
+                autoCapitalize="none"
+                secureTextEntry
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
+              <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => navigation.navigate("Login")}
+                >
+                  <Text style={[styles.buttonText, { color: "white" }]} onPress={handleSignUp}>
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
