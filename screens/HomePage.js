@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Animated,
   Vibration,
+  Image,
 } from "react-native";
 import * as Haptics from "expo-haptics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -72,6 +73,7 @@ function HomePage(props) {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={styles.container}>
+        <Image source={require("../assets/logo.png")} style={styles.image} />
         <Text>{user ? user.email : "User"}</Text>
       </SafeAreaView>
     </LinearGradient>
@@ -84,6 +86,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  image: {
+    resizeMode: "contain",
+    width: "50%",
+    height: undefined,
+    aspectRatio: 1,
+    position: "absolute",
+    top: -35,
+    left: 10,
+  }
 })
 
 export default HomePage;

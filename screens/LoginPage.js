@@ -14,7 +14,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { LinearGradient } from "expo-linear-gradient";
 import {BASE_URL} from "@env"
 import * as Device from "expo-device";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function LoginPage({ navigation }) {
   const [email, setEmail] = useState("");
@@ -41,7 +41,6 @@ function LoginPage({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         AsyncStorage.setItem("token", data.token);
-        AsyncStorage.setItem("user", JSON.stringify(data.user));
 
         navigation.navigate("Home");
       });
