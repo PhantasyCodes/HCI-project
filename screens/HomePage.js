@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -10,51 +11,40 @@ import {
   Animated,
   Vibration,
   Image,
+  View
 } from "react-native";
 import * as Haptics from "expo-haptics";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {BASE_URL} from "@env"
 import MatchButton from "./components/MatchButton";
+import MyCarousel from "./components/MyCarousel";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 function HomePage(props) {
+  const slideAnim = useRef(new Animated.Value(1000)).current;
 
-  const [user, setUser] = useState(null);
+  // useEffect(() => {
+  //   Animated.timing(slideAnim, {
+  //     toValue: 120,
+  //     duration: 1800,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, []);
 
-  const validateToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem("token");
+  const slideCard = () => {
+    Animated.timing(slideAnim, {
+      toValue: 120,
+      duration: 1800,
+      useNativeDriver: true,
+    }).start();
+  };
 
-      const response = await fetch(`${BASE_URL}/api/validate`, {
-        method: "POST",
-        headers: {
-          'Content-Type' : 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+  const slideBack = () => {
+    Animated.timing(slideAnim, {
+      toValue: 1000,
+      duration: 1800,
+      useNativeDriver: true,
+    }).start();
+  };
 
-      if (response.ok) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-
-  useEffect(() => {
-    AsyncStorage.getItem("user").then((data) => {setUser(JSON.parse(data))})
-    .catch((err) => console.log(err))
-
-    const checkTokenValidity = async () => {
-      const tokenValid = await validateToken();
-
-      if (!tokenValid) {
-        props.navigation.navigate("Login");
-      }
-    }
-  }, [])
 
   const [fontsLoaded] = useFonts({
     Molot: require("../assets/fonts/Molot.otf"),
@@ -74,8 +64,14 @@ function HomePage(props) {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={styles.container}>
-        <Image source={require("../assets/logo.png")} style={styles.image} />
-        <MatchButton />
+        <Image source={require("../assets/logo.png")} style={styles.logoImage} />
+        <MatchButton slideCard={slideCard}/>
+        {/* <MyCarousel /> */}
+        <Animated.View
+          style={{ ...styles.safeArea, transform: [{ translateY: slideAnim }] }}
+          >
+          <MyCarousel />
+        </Animated.View>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -87,8 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
-  image: {
+  logoImage: {
     resizeMode: "contain",
     width: "50%",
     height: undefined,
@@ -96,7 +91,98 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -35,
     left: 10,
-  }
-})
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 30,
+    marginBottom: 40,
+  },
+  seeMoreButton: {
+    backgroundColor: "#8454EA",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  nextButton: {
+    backgroundColor: "#54EA90",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+    marginHorizontal: 20,
+    marginTop: 60,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    marginLeft: 7,
+  },
+  titleRoomie: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#000",
+    backgroundColor: "#8454EA",
+    borderRadius: 5,
+    paddingHorizontal: 8,
+  },
+  titleRoulette: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#000",
+    paddingHorizontal: 5,
+  },
+  safeArea: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "80%",
+    borderTopRightRadius: 45,
+    borderTopLeftRadius: 45,
+    overflow: "hidden",
+  },
+  whiteContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  line: {
+    height: 8,
+    backgroundColor: "#000",
+    borderRadius: 4,
+    marginBottom: 10,
+    maxWidth: 130,
+    marginLeft: 120,
+  },
+  image: {
+    // flex: 1,
+    width: "100%",
+    resizeMode: "contain",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 45,
+    fontWeight: "bold",
+    marginTop: 0,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 15,
+  },
+  iconText: {
+    marginLeft: 10,
+    fontSize: 16,
+  },
+});
 
 export default HomePage;

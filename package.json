@@ -23,6 +23,7 @@
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.8",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "^1.1.0",
     "react-native-vector-icons": "^9.2.0"

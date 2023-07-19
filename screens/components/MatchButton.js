@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, Animated, StyleSheet } from "react-native";
 import RIcon from "../../assets/R.svg";
 
-const RecordButton = () => {
+const MatchButton = (props) => {
   const [isRecording, setIsRecording] = useState(false);
   const outerCircleScale = useRef(new Animated.Value(1)).current;
   const middleCircleScale = useRef(new Animated.Value(1)).current;
@@ -25,11 +25,11 @@ const RecordButton = () => {
             duration: 450,
             useNativeDriver: true,
           }),
-        //   Animated.timing(outerCircleScale, {
-        //     toValue: 1.3,
-        //     duration: 450,
-        //     useNativeDriver: true,
-        //   }),
+          //   Animated.timing(outerCircleScale, {
+          //     toValue: 1.3,
+          //     duration: 450,
+          //     useNativeDriver: true,
+          //   }),
           Animated.timing(outerCircleScale, {
             toValue: 1.4,
             duration: 450,
@@ -131,8 +131,11 @@ const RecordButton = () => {
 
   return (
     <TouchableOpacity
-    //   onPress={() => setIsRecording(!isRecording)}
-    onPress={() => startAnimation()}
+      //   onPress={() => setIsRecording(!isRecording)}
+      onPress={() => {
+        startAnimation();
+        props.slideCard();
+      }}
       style={styles.container}
     >
       <Animated.View
@@ -142,7 +145,7 @@ const RecordButton = () => {
         style={[styles.middleCircle, middleCircleStyle]}
       ></Animated.View>
       <Animated.View style={[styles.innerCircle, buttonStyle]}>
-        <RIcon width={100} height={100}/>
+        <RIcon width={100} height={100} />
       </Animated.View>
     </TouchableOpacity>
   );
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    position: "absolute",
   },
   outerCircle: {
     width: 280,
@@ -178,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecordButton;
+export default MatchButton;
