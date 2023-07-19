@@ -14,6 +14,7 @@ import {
 import * as Haptics from "expo-haptics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {BASE_URL} from "@env"
+import MatchButton from "./components/MatchButton";
 
 function HomePage(props) {
 
@@ -74,7 +75,7 @@ function HomePage(props) {
     >
       <SafeAreaView style={styles.container}>
         <Image source={require("../assets/logo.png")} style={styles.image} />
-        <Text>{user ? user.email : "User"}</Text>
+        <MatchButton />
       </SafeAreaView>
     </LinearGradient>
   );
