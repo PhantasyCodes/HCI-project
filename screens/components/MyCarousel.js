@@ -9,11 +9,13 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
 const MyCarousel = () => {
   const carouselRef = useRef(null);
+  const navigation = useNavigation();
   const data = [
     { id: 1, title: "Slide 1" },
     { id: 2, title: "Slide 2" },
@@ -39,7 +41,7 @@ const MyCarousel = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.seeMoreButton}>
+          <TouchableOpacity style={styles.seeMoreButton} onPress={() => navigation.navigate("Chat")}>
             <Text style={styles.buttonText}>SEE MORE</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.nextButton} onPress={handleNextSlide}>

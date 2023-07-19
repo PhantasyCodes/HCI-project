@@ -21,18 +21,10 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 function HomePage(props) {
   const slideAnim = useRef(new Animated.Value(1000)).current;
 
-  // useEffect(() => {
-  //   Animated.timing(slideAnim, {
-  //     toValue: 120,
-  //     duration: 1800,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, []);
-
   const slideCard = () => {
     Animated.timing(slideAnim, {
-      toValue: 120,
-      duration: 1800,
+      toValue: 60,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
   };
@@ -145,7 +137,7 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: "#fff",
     width: "100%",
-    height: "80%",
+    height: "100%",
     borderTopRightRadius: 45,
     borderTopLeftRadius: 45,
     overflow: "hidden",

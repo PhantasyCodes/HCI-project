@@ -1,0 +1,28 @@
+[{
+    "id" : "1",
+    "text" : "How are you?",
+    "createdAt" : "2019-01-01 00:00:00",
+    "user": {
+        "id": "1",
+        "name": "John Doe"
+    }
+},
+{
+    "id" : "2",
+    "text" : "I'm fine, thanks!",
+    "createdAt" : "2019-01-01 00:00:01",
+    "user": {
+        "id": "2",
+        "name": "Jane Doe"
+    }
+},
+{
+    "id": "3",
+    "text": "What are you doing?",
+    "createdAt": "2019-01-01 00:00:02",
+    "user": {
+        "id": "3",
+        "name": "Peter Smith"
+    }
+}
+]
