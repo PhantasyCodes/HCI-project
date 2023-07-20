@@ -6,7 +6,7 @@ import messages from "../assets/data/messages.json";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Ionicons } from "@expo/vector-icons";
 import Back from "../assets/back.svg";
-
+import { Haptics } from 'expo';
 
 dayjs.extend(relativeTime);
 

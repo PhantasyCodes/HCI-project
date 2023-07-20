@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, TouchableOpacity, Animated, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Animated, StyleSheet, Text } from "react-native";
 import RIcon from "../../assets/R.svg";
+import { Haptics } from "expo";
 
 const MatchButton = (props) => {
   const [isRecording, setIsRecording] = useState(false);
   const outerCircleScale = useRef(new Animated.Value(1)).current;
   const middleCircleScale = useRef(new Animated.Value(1)).current;
   const innerCircleScale = useRef(new Animated.Value(1)).current;
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     if (isRecording) {
@@ -130,32 +132,55 @@ const MatchButton = (props) => {
   };
 
   return (
-    <TouchableOpacity
-      //   onPress={() => setIsRecording(!isRecording)}
-      onPress={() => {
-        startAnimation();
-        props.slideCard();
-      }}
-      style={styles.container}
-    >
-      <Animated.View
-        style={[styles.outerCircle, outerCircleStyle]}
-      ></Animated.View>
-      <Animated.View
-        style={[styles.middleCircle, middleCircleStyle]}
-      ></Animated.View>
-      <Animated.View style={[styles.innerCircle, buttonStyle]}>
-        <RIcon width={100} height={100} />
-      </Animated.View>
-    </TouchableOpacity>
+    <View style={styles.mainContainer}>
+      <TouchableOpacity
+        //   onPress={() => setIsRecording(!isRecording)}
+        onPress={() => {
+          startAnimation();
+          setShowText(true);
+          setTimeout(() => {
+            props.slideCard();
+          }, 3000);
+        }}
+        style={styles.container}
+      >
+        <Animated.View
+          style={[styles.outerCircle, outerCircleStyle]}
+        ></Animated.View>
+        <Animated.View
+          style={[styles.middleCircle, middleCircleStyle]}
+        ></Animated.View>
+        <Animated.View style={[styles.innerCircle, buttonStyle]}>
+          <RIcon width={100} height={100} />
+        </Animated.View>
+      </TouchableOpacity>
+      <View style={{
+        height: 100,
+      }}>
+        {showText && (
+          <Text style={{
+            color: "black",
+            fontSize: 20,
+            fontFamily: "Metropolis-SemiBold",
+          }}>Looking for matches...</Text>
+        )}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    // position: "absolute",
+    marginBottom: 60,
   },
   outerCircle: {
     width: 280,

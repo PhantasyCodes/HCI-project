@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 45,
     fontWeight: "bold",
     marginTop: 0,
+    fontFamily: "Molot"
   },
   iconContainer: {
     flexDirection: "row",

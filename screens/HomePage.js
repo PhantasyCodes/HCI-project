@@ -17,11 +17,15 @@ import * as Haptics from "expo-haptics";
 import MatchButton from "./components/MatchButton";
 import MyCarousel from "./components/MyCarousel";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import HamburgerMenu from "./components/HamburgerMenu";
 
 function HomePage(props) {
   const slideAnim = useRef(new Animated.Value(1000)).current;
 
   const slideCard = () => {
+    Haptics.notificationAsync(
+      Haptics.NotificationFeedbackType.Success
+    )
     Animated.timing(slideAnim, {
       toValue: 60,
       duration: 1000,
@@ -56,7 +60,10 @@ function HomePage(props) {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={styles.container}>
+        <View style={styles.navbar}>
         <Image source={require("../assets/logo.png")} style={styles.logoImage} />
+        <HamburgerMenu />
+        </View>
         <MatchButton slideCard={slideCard}/>
         {/* <MyCarousel /> */}
         <Animated.View
@@ -70,6 +77,16 @@ function HomePage(props) {
 }
 
 const styles = StyleSheet.create({
+  navbar: {
+    flexDirection: "row",
+    position: "absolute",
+    justifyContent: "space-between",
+    top: 0,
+    left: 0,
+    width: "100%",
+    // backgroundColor: "#fff",
+    height: 100,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -80,9 +97,8 @@ const styles = StyleSheet.create({
     width: "50%",
     height: undefined,
     aspectRatio: 1,
-    position: "absolute",
-    top: -35,
-    left: 10,
+    marginTop: -30,
+    marginLeft: 15,
   },
   buttonContainer: {
     flexDirection: "row",
