@@ -15,18 +15,18 @@ const HamburgerMenu = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 45,
-        height: 45,
+        width: 30,
+        height: 30,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
         borderRadius: 23,
-        marginTop: 50,
+        marginTop: 58,
         marginRight: 20,
     },
     line: {
         width: '50%',
-        height: 3,
+        height: 2,
         borderRadius: 3,
         backgroundColor: 'white',
         margin: 1.5,

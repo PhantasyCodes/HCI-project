@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   whiteContainer: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
   },
   line: {

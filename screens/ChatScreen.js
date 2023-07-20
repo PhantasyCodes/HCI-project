@@ -1,4 +1,14 @@
-import { StyleSheet, Text, View, Image, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, FlatList, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import dayjs from "dayjs";
@@ -6,97 +16,88 @@ import messages from "../assets/data/messages.json";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Ionicons } from "@expo/vector-icons";
 import Back from "../assets/back.svg";
-import { Haptics } from 'expo';
+import { Haptics } from "expo";
 
 dayjs.extend(relativeTime);
 
 const Message = ({ message }) => {
-
-    const isMyMessage = () => {
-      return message.user.id === "1";
-    };
-    return (
-      <View
+  const isMyMessage = () => {
+    return message.user.id === "1";
+  };
+  return (
+    <View
+      style={[
+        styles.messageContainer,
+        {
+          backgroundColor: isMyMessage() ? "#8454EA" : "#2DD36F",
+          alignSelf: isMyMessage() ? "flex-end" : "flex-start",
+        },
+      ]}
+    >
+      <Text
         style={[
-          styles.messageContainer,
+          styles.text,
           {
-            backgroundColor: isMyMessage() ? "#8454EA" : "#2DD36F",
-            alignSelf: isMyMessage() ? "flex-end" : "flex-start",
+            color: isMyMessage() ? "white" : "black",
           },
         ]}
       >
-        <Text
-          style={[
-            styles.text,
-            {
-              color: isMyMessage() ? "white" : "black",
-            },
-          ]}
-        >
-          {message.text}
-        </Text>
-        <Text
-          style={
-            styles.time
-          }
-        >
-          {dayjs(message.createdAt).fromNow(true)}
-        </Text>
-      </View>
-    );
-  };
+        {message.text}
+      </Text>
+      <Text style={styles.time}>{dayjs(message.createdAt).fromNow(true)}</Text>
+    </View>
+  );
+};
 
-  const InputBox = () => {
-    const [message, setMessage] = React.useState("");
-    const onSend = () => {};
-    return (
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Type a message"
-          style={[styles.input, {
-          }]}
-          onChange={setMessage}
-        />
-        <Ionicons
-          onPress={onSend}
-          style={styles.send}
-          name="send"
-          size={20}
-          color="white"
-        />
-      </View>
-    );
-  };
+const InputBox = () => {
+  const [message, setMessage] = React.useState("");
+  const onSend = () => {};
+  return (
+    <View style={styles.inputContainer}>
+      <TextInput
+        placeholder="Type a message"
+        style={[styles.input, {}]}
+        onChange={setMessage}
+      />
+      <Ionicons
+        onPress={onSend}
+        style={styles.send}
+        name="send"
+        size={20}
+        color="white"
+      />
+    </View>
+  );
+};
 
 const ChatScreen = () => {
   return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <SafeAreaView style={styles.container}>
-          <Image
-            source={require("../assets/logo.png")}
-            style={styles.logoImage}
-          />
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
-              <Back width={30} height={30} />
-            </TouchableOpacity>
-            <View>
-
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <SafeAreaView style={styles.container}>
+        <Image
+          source={require("../assets/logo.png")}
+          style={styles.logoImage}
+        />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.navigate("ChatsScreen")}>
+            <Back width={30} height={30} />
+          </TouchableOpacity>
+          <View>
             <Text style={styles.headerText}>Njoki</Text>
-            </View>
           </View>
-          <FlatList
-            data={messages}
-            renderItem={({ item }) => <Message message={item} />}
-            style={styles.list}
-            inverted
-          />
-          <InputBox />
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+        </View>
+        <FlatList
+          data={messages}
+          renderItem={({ item }) => <Message message={item} />}
+          style={styles.list}
+          inverted
+        />
+        <InputBox />
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -11,21 +10,20 @@ import {
   Animated,
   Vibration,
   Image,
-  View
+  View,
 } from "react-native";
 import * as Haptics from "expo-haptics";
 import MatchButton from "./components/MatchButton";
 import MyCarousel from "./components/MyCarousel";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import HamburgerMenu from "./components/HamburgerMenu";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 function HomePage(props) {
   const slideAnim = useRef(new Animated.Value(1000)).current;
 
   const slideCard = () => {
-    Haptics.notificationAsync(
-      Haptics.NotificationFeedbackType.Success
-    )
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     Animated.timing(slideAnim, {
       toValue: 60,
       duration: 1000,
@@ -40,7 +38,6 @@ function HomePage(props) {
       useNativeDriver: true,
     }).start();
   };
-
 
   const [fontsLoaded] = useFonts({
     Molot: require("../assets/fonts/Molot.otf"),
@@ -61,14 +58,27 @@ function HomePage(props) {
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.navbar}>
-        <Image source={require("../assets/logo.png")} style={styles.logoImage} />
-        <HamburgerMenu />
+          <Image
+            source={require("../assets/logo.png")}
+            style={styles.logoImage}
+          />
+          <TouchableOpacity
+            style={{
+              marginTop: 58,
+              marginRight: -60,
+            }}
+            onPress={() => props.navigation.navigate("ChatsScreen")}
+          >
+            <Ionicons name="chatbubbles" size={30} color="#000" />
+          </TouchableOpacity>
+
+          <HamburgerMenu />
         </View>
-        <MatchButton slideCard={slideCard}/>
+        <MatchButton slideCard={slideCard} />
         {/* <MyCarousel /> */}
         <Animated.View
           style={{ ...styles.safeArea, transform: [{ translateY: slideAnim }] }}
-          >
+        >
           <MyCarousel />
         </Animated.View>
       </SafeAreaView>
