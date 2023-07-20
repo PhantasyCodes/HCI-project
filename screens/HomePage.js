@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderTopRightRadius: 45,
     borderTopLeftRadius: 45,
-    overflow: "hidden",
+    // overflow: "hidden",
   },
   whiteContainer: {
     flex: 1,

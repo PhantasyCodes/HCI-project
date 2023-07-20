@@ -9,18 +9,22 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
 const MyCarousel = () => {
   const carouselRef = useRef(null);
   const navigation = useNavigation();
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const data = [
     { id: 1, title: "Slide 1" },
     { id: 2, title: "Slide 2" },
     { id: 3, title: "Slide 3" },
   ];
+
+  const isFocused = useIsFocused();
+
 
   const renderItem = ({ item }) => {
     return (
@@ -41,7 +45,7 @@ const MyCarousel = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.seeMoreButton} onPress={() => navigation.navigate("Chat")}>
+          <TouchableOpacity style={styles.seeMoreButton} onPress={() => navigation.navigate("Profile")}>
             <Text style={styles.buttonText}>SEE MORE</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.nextButton} onPress={handleNextSlide}>
@@ -49,6 +53,7 @@ const MyCarousel = () => {
           </TouchableOpacity>
         </View>
       </View>
+
     );
   };
 

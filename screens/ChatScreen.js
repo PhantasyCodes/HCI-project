@@ -17,6 +17,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Ionicons } from "@expo/vector-icons";
 import Back from "../assets/back.svg";
 import { Haptics } from "expo";
+import { useNavigation } from "@react-navigation/native";
 
 dayjs.extend(relativeTime);
 
@@ -38,7 +39,7 @@ const Message = ({ message }) => {
         style={[
           styles.text,
           {
-            color: isMyMessage() ? "white" : "black",
+            color: "white",
           },
         ]}
       >
@@ -56,7 +57,7 @@ const InputBox = () => {
     <View style={styles.inputContainer}>
       <TextInput
         placeholder="Type a message"
-        style={[styles.input, {}]}
+        style={styles.input}
         onChange={setMessage}
       />
       <Ionicons
@@ -71,6 +72,7 @@ const InputBox = () => {
 };
 
 const ChatScreen = () => {
+  const navigation = useNavigation();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -137,9 +139,10 @@ const styles = StyleSheet.create({
     fontFamily: "Metropolis-Regular",
   },
   time: {
-    fontFamily: "Metropolis-Regular",
+    fontFamily: "Metropolis-SemiBold",
     alignSelf: "flex-end",
-    color: "grey",
+    color: "white",
+    opacity: 0.8,
   },
   inputContainer: {
     flexDirection: "row",
@@ -150,7 +153,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: "white",
-    padding: 5,
     borderRadius: 50,
     paddingHorizontal: 10,
     borderColor: "lightgrey",
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   headerText: {
-    fontFamily: "Metropolis-Bold",
+    fontFamily: "Metropolis-SemiBold",
     fontSize: 20,
   },
 });

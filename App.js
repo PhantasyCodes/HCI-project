@@ -9,6 +9,7 @@ import HomePage from "./screens/HomePage";
 import ChatScreen from "./screens/ChatScreen";
 import ChatsScreen from "./screens/ChatsScreen";
 import { StatusBar } from "expo-status-bar";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomePage} />
         <Stack.Screen name="Chat" component={ChatScreen} />
         <Stack.Screen name="ChatsScreen" component={ChatsScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
