@@ -75,7 +75,6 @@ function HomePage(props) {
           <HamburgerMenu />
         </View>
         <MatchButton slideCard={slideCard} />
-        {/* <MyCarousel /> */}
         <Animated.View
           style={{ ...styles.safeArea, transform: [{ translateY: slideAnim }] }}
         >
@@ -94,7 +93,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    // backgroundColor: "#fff",
     height: 100,
   },
   container: {
